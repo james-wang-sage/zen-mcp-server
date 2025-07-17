@@ -75,18 +75,6 @@
       "description": "Claude 4 Sonnet - Balanced performance with vision"
     },
     {
-      "model_name": "anthropic/claude-3.5-haiku",
-      "aliases": ["haiku", "claude-haiku", "claude3-haiku", "claude-3-haiku"],
-      "context_window": 200000,
-      "max_output_tokens": 64000,
-      "supports_extended_thinking": false,
-      "supports_json_mode": false,
-      "supports_function_calling": false,
-      "supports_images": true,
-      "max_image_size_mb": 5.0,
-      "description": "Claude 3 Haiku - Fast and efficient with vision"
-    },
-    {
       "model_name": "google/gemini-2.5-pro",
       "aliases": ["pro","gemini-pro", "gemini", "pro-openrouter"],
       "context_window": 1048576,
@@ -97,42 +85,6 @@
       "supports_images": true,
       "max_image_size_mb": 20.0,
       "description": "Google's Gemini 2.5 Pro via OpenRouter with vision"
-    },
-    {
-      "model_name": "google/gemini-2.5-flash",
-      "aliases": ["flash","gemini-flash", "flash-openrouter", "flash-2.5"],
-      "context_window": 1048576,
-      "max_output_tokens": 65536,
-      "supports_extended_thinking": false,
-      "supports_json_mode": true,
-      "supports_function_calling": false,
-      "supports_images": true,
-      "max_image_size_mb": 15.0,
-      "description": "Google's Gemini 2.5 Flash via OpenRouter with vision"
-    },
-    {
-      "model_name": "mistralai/mistral-large-2411",
-      "aliases": ["mistral-large", "mistral"],
-      "context_window": 128000,
-      "max_output_tokens": 32000,
-      "supports_extended_thinking": false,
-      "supports_json_mode": true,
-      "supports_function_calling": true,
-      "supports_images": false,
-      "max_image_size_mb": 0.0,
-      "description": "Mistral's largest model (text-only)"
-    },
-    {
-      "model_name": "meta-llama/llama-3-70b",
-      "aliases": ["llama", "llama3", "llama3-70b", "llama-70b", "llama3-openrouter"],
-      "context_window": 8192,
-      "max_output_tokens": 8192,
-      "supports_extended_thinking": false,
-      "supports_json_mode": false,
-      "supports_function_calling": false,
-      "supports_images": false,
-      "max_image_size_mb": 0.0,
-      "description": "Meta's Llama 3 70B model (text-only)"
     },
     {
       "model_name": "deepseek/deepseek-r1-0528",
@@ -173,22 +125,8 @@
       "description": "OpenAI's o3 model - well-rounded and powerful across domains with vision"
     },
     {
-      "model_name": "openai/o3-mini",
-      "aliases": ["o3-mini", "o3mini"],
-      "context_window": 200000,
-      "max_output_tokens": 100000,
-      "supports_extended_thinking": false,
-      "supports_json_mode": true,
-      "supports_function_calling": true,
-      "supports_images": true,
-      "max_image_size_mb": 20.0,
-      "supports_temperature": false,
-      "temperature_constraint": "fixed",
-      "description": "OpenAI's o3-mini model - balanced performance and speed with vision"
-    },
-    {
-      "model_name": "openai/o3-mini-high",
-      "aliases": ["o3-mini-high", "o3mini-high"],
+      "model_name": "openai/o4-mini-high",
+      "aliases": ["o4-mini-high", "o4"],
       "context_window": 200000,
       "max_output_tokens": 100000,
       "supports_extended_thinking": false,
@@ -215,31 +153,18 @@
       "description": "OpenAI's o3-pro model - professional-grade reasoning and analysis with vision"
     },
     {
-      "model_name": "openai/o4-mini",
-      "aliases": ["o4-mini", "o4mini"],
-      "context_window": 200000,
+      "model_name": "x-ai/grok-4",
+      "aliases": ["grok-4", "grok4"],
+      "context_window": 256000,
       "max_output_tokens": 100000,
-      "supports_extended_thinking": false,
+      "supports_extended_thinking": true,
       "supports_json_mode": true,
       "supports_function_calling": true,
       "supports_images": true,
       "max_image_size_mb": 20.0,
       "supports_temperature": false,
       "temperature_constraint": "fixed",
-      "description": "OpenAI's o4-mini model - optimized for shorter contexts with rapid reasoning and vision"
-    },
-    {
-      "model_name": "llama3.2",
-      "aliases": ["local-llama", "local", "llama3.2", "ollama-llama"],
-      "context_window": 128000,
-      "max_output_tokens": 64000,
-      "supports_extended_thinking": false,
-      "supports_json_mode": false,
-      "supports_function_calling": false,
-      "supports_images": false,
-      "max_image_size_mb": 0.0,
-      "is_custom": true,
-      "description": "Local Llama 3.2 model via custom endpoint (Ollama/vLLM) - 128K context window (text-only)"
+      "description": "xAI's Grok-4 model - advanced reasoning and multimodal capabilities with real-time web access"
     }
   ]
 }
