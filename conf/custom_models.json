@@ -87,6 +87,18 @@
       "description": "Google's Gemini 2.5 Pro via OpenRouter with vision"
     },
     {
+      "model_name": "google/gemini-2.5-flash",
+      "aliases": ["flash","gemini-flash", "flash-openrouter", "flash-2.5"],
+      "context_window": 1048576,
+      "max_output_tokens": 65536,
+      "supports_extended_thinking": false,
+      "supports_json_mode": true,
+      "supports_function_calling": false,
+      "supports_images": true,
+      "max_image_size_mb": 15.0,
+      "description": "Google's Gemini 2.5 Flash via OpenRouter with vision"
+    },
+    {
       "model_name": "deepseek/deepseek-r1-0528",
       "aliases": ["deepseek-r1", "deepseek", "r1", "deepseek-thinking"],
       "context_window": 65536,
