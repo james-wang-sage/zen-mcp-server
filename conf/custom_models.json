@@ -111,30 +111,6 @@
       "description": "DeepSeek R1 with thinking mode - advanced reasoning capabilities (text-only)"
     },
     {
-      "model_name": "qwen/qwen3-coder",
-      "aliases": ["qwen3-coder", "qwen-coder", "qwen3", "qwen"],
-      "context_window": 81920,
-      "max_output_tokens": 16384,
-      "supports_extended_thinking": true,
-      "supports_json_mode": true,
-      "supports_function_calling": true,
-      "supports_images": false,
-      "max_image_size_mb": 0.0,
-      "description": "Qwen-3 Coder with strong code generation and reasoning capability (text-only)"
-    },
-    {
-      "model_name": "moonshotai/kimi-k2",
-      "aliases": ["kimi-k2", "moonshotai/kimi-k2-instruct", "kimi", "moonshot-k2"],
-      "context_window": 131072,
-      "max_output_tokens": 16384,
-      "supports_extended_thinking": true,
-      "supports_json_mode": true,
-      "supports_function_calling": true,
-      "supports_images": false,
-      "max_image_size_mb": 0.0,
-      "description": "MoonshotAI Kimi K2 - 1T parameter Mixture-of-Experts model with advanced reasoning, agentic workflow, and code generation capabilities (text-only)"
-    },
-    {
       "model_name": "openai/o3",
       "aliases": ["o3"],
       "context_window": 200000,
@@ -191,6 +167,30 @@
       "description": "xAI's Grok-4 model - advanced reasoning and multimodal capabilities with real-time web access"
     },
     {
+      "model_name": "moonshotai/kimi-k2",
+      "aliases": ["kimi-k2", "moonshotai/kimi-k2-instruct", "kimi", "moonshot-k2"],
+      "context_window": 131072,
+      "max_output_tokens": 16384,
+      "supports_extended_thinking": true,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "supports_images": false,
+      "max_image_size_mb": 0.0,
+      "description": "MoonshotAI Kimi K2 - 1T parameter Mixture-of-Experts model with advanced reasoning, agentic workflow, and code generation capabilities (text-only)"
+    },
+    {
+      "model_name": "qwen/qwen3-coder",
+      "aliases": ["qwen3-coder", "qwen-coder", "qwen3", "qwen"],
+      "context_window": 81920,
+      "max_output_tokens": 16384,
+      "supports_extended_thinking": true,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "supports_images": false,
+      "max_image_size_mb": 0.0,
+      "description": "Qwen-3 Coder with strong code generation and reasoning capability (text-only)"
+    },
+    {
       "model_name": "openrouter/horizon-beta",
       "aliases": ["horizon-beta", "horizon", "openrouter-horizon"],
       "context_window": 256000,
@@ -201,6 +201,18 @@
       "supports_images": true,
       "max_image_size_mb": 20.0,
       "description": "OpenRouter's Horizon Beta - experimental model for community feedback (free during testing period)"
+    },
+    {
+      "model_name": "z-ai/glm-4.5",
+      "aliases": ["glm-4.5", "glm4.5", "glm", "zai-glm"],
+      "context_window": 131072,
+      "max_output_tokens": 32768,
+      "supports_extended_thinking": true,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "supports_images": false,
+      "max_image_size_mb": 0.0,
+      "description": "GLM-4.5 flagship foundation model with MoE architecture, supports thinking mode for complex reasoning and tool use"
     }
   ]
 }
