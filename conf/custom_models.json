@@ -189,6 +189,18 @@
       "supports_temperature": false,
       "temperature_constraint": "fixed",
       "description": "xAI's Grok-4 model - advanced reasoning and multimodal capabilities with real-time web access"
+    },
+    {
+      "model_name": "openrouter/horizon-beta",
+      "aliases": ["horizon-beta", "horizon", "openrouter-horizon"],
+      "context_window": 256000,
+      "max_output_tokens": 64000,
+      "supports_extended_thinking": false,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "supports_images": true,
+      "max_image_size_mb": 20.0,
+      "description": "OpenRouter's Horizon Beta - experimental model for community feedback (free during testing period)"
     }
   ]
 }
