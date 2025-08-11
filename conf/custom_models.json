@@ -111,20 +111,6 @@
       "description": "DeepSeek R1 with thinking mode - advanced reasoning capabilities (text-only)"
     },
     {
-      "model_name": "openai/o3",
-      "aliases": ["o3"],
-      "context_window": 200000,
-      "max_output_tokens": 100000,
-      "supports_extended_thinking": false,
-      "supports_json_mode": true,
-      "supports_function_calling": true,
-      "supports_images": true,
-      "max_image_size_mb": 20.0,
-      "supports_temperature": false,
-      "temperature_constraint": "fixed",
-      "description": "OpenAI's o3 model - well-rounded and powerful across domains with vision"
-    },
-    {
       "model_name": "openai/o4-mini-high",
       "aliases": ["o4-mini-high", "o4"],
       "context_window": 200000,
@@ -140,7 +126,7 @@
     },
     {
       "model_name": "openai/o3-pro",
-      "aliases": ["o3-pro", "o3pro"],
+      "aliases": ["o3-pro", "o3pro", "o3"],
       "context_window": 200000,
       "max_output_tokens": 100000,
       "supports_extended_thinking": false,
@@ -191,18 +177,6 @@
       "description": "Qwen-3 Coder with strong code generation and reasoning capability (text-only)"
     },
     {
-      "model_name": "openrouter/horizon-beta",
-      "aliases": ["horizon-beta", "horizon", "openrouter-horizon"],
-      "context_window": 256000,
-      "max_output_tokens": 128000,
-      "supports_extended_thinking": false,
-      "supports_json_mode": true,
-      "supports_function_calling": true,
-      "supports_images": true,
-      "max_image_size_mb": 20.0,
-      "description": "OpenRouter's Horizon Beta - experimental model for community feedback (free during testing period)"
-    },
-    {
       "model_name": "z-ai/glm-4.5",
       "aliases": ["glm-4.5", "glm4.5", "glm", "zai-glm"],
       "context_window": 131072,
@@ -225,6 +199,20 @@
       "supports_images": false,
       "max_image_size_mb": 0.0,
       "description": "GPT OSS 120B - Open-source GPT model with strong general capabilities"
+    },
+    {
+      "model_name": "openai/gpt-5",
+      "aliases": ["gpt-5", "gpt5", "gpt"],
+      "context_window": 400000,
+      "max_output_tokens": 128000,
+      "supports_extended_thinking": false,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "supports_images": true,
+      "max_image_size_mb": 20.0,
+      "supports_temperature": true,
+      "temperature_constraint": "range",
+      "description": "OpenAI GPT-5 via OpenRouter"
     }
   ]
 }
