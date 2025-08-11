@@ -140,7 +140,7 @@
     },
     {
       "model_name": "x-ai/grok-4",
-      "aliases": ["grok-4", "grok4"],
+      "aliases": ["grok-4", "grok4", "grok"],
       "context_window": 256000,
       "max_output_tokens": 100000,
       "supports_extended_thinking": true,
