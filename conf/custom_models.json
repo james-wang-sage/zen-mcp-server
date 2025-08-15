@@ -51,30 +51,6 @@
   },
   "models": [
     {
-      "model_name": "anthropic/claude-opus-4.1",
-      "aliases": ["opus-4.1", "claude-opus-4.1", "opus"],
-      "context_window": 200000,
-      "max_output_tokens": 32000,
-      "supports_extended_thinking": false,
-      "supports_json_mode": false,
-      "supports_function_calling": false,
-      "supports_images": true,
-      "max_image_size_mb": 5.0,
-      "description": "Claude 4.1 Opus - Enhanced version of Claude Opus with improved capabilities"
-    },
-    {
-      "model_name": "anthropic/claude-sonnet-4",
-      "aliases": ["sonnet", "claude-sonnet", "claude4-sonnet", "claude-4-sonnet", "claude"],
-      "context_window": 200000,
-      "max_output_tokens": 64000,
-      "supports_extended_thinking": false,
-      "supports_json_mode": false,
-      "supports_function_calling": false,
-      "supports_images": true,
-      "max_image_size_mb": 5.0,
-      "description": "Claude 4 Sonnet - Balanced performance with vision"
-    },
-    {
       "model_name": "google/gemini-2.5-pro",
       "aliases": ["pro","gemini-pro", "gemini", "pro-openrouter"],
       "context_window": 1048576,
