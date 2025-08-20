@@ -75,18 +75,6 @@
       "description": "Claude Sonnet 4.1 - High-performance model with exceptional reasoning and efficiency"
     },
     {
-      "model_name": "anthropic/claude-3.5-haiku",
-      "aliases": ["haiku", "claude-haiku", "claude3-haiku", "claude-3-haiku"],
-      "context_window": 200000,
-      "max_output_tokens": 64000,
-      "supports_extended_thinking": false,
-      "supports_json_mode": false,
-      "supports_function_calling": false,
-      "supports_images": true,
-      "max_image_size_mb": 5.0,
-      "description": "Claude 3 Haiku - Fast and efficient with vision"
-    },
-    {
       "model_name": "google/gemini-2.5-pro",
       "aliases": ["pro","gemini-pro", "gemini", "pro-openrouter"],
       "context_window": 1048576,
@@ -111,30 +99,6 @@
       "description": "Google's Gemini 2.5 Flash via OpenRouter with vision"
     },
     {
-      "model_name": "mistralai/mistral-large-2411",
-      "aliases": ["mistral-large", "mistral"],
-      "context_window": 128000,
-      "max_output_tokens": 32000,
-      "supports_extended_thinking": false,
-      "supports_json_mode": true,
-      "supports_function_calling": true,
-      "supports_images": false,
-      "max_image_size_mb": 0.0,
-      "description": "Mistral's largest model (text-only)"
-    },
-    {
-      "model_name": "meta-llama/llama-3-70b",
-      "aliases": ["llama", "llama3", "llama3-70b", "llama-70b", "llama3-openrouter"],
-      "context_window": 8192,
-      "max_output_tokens": 8192,
-      "supports_extended_thinking": false,
-      "supports_json_mode": false,
-      "supports_function_calling": false,
-      "supports_images": false,
-      "max_image_size_mb": 0.0,
-      "description": "Meta's Llama 3 70B model (text-only)"
-    },
-    {
       "model_name": "deepseek/deepseek-r1-0528",
       "aliases": ["deepseek-r1", "deepseek", "r1", "deepseek-thinking"],
       "context_window": 65536,
@@ -145,18 +109,6 @@
       "supports_images": false,
       "max_image_size_mb": 0.0,
       "description": "DeepSeek R1 with thinking mode - advanced reasoning capabilities (text-only)"
-    },
-    {
-      "model_name": "perplexity/llama-3-sonar-large-32k-online",
-      "aliases": ["perplexity", "sonar", "perplexity-online"],
-      "context_window": 32768,
-      "max_output_tokens": 32768,
-      "supports_extended_thinking": false,
-      "supports_json_mode": false,
-      "supports_function_calling": false,
-      "supports_images": false,
-      "max_image_size_mb": 0.0,
-      "description": "Perplexity's online model with web search (text-only)"
     },
     {
       "model_name": "openai/o3",
@@ -229,17 +181,94 @@
       "description": "OpenAI's o4-mini model - optimized for shorter contexts with rapid reasoning and vision"
     },
     {
-      "model_name": "llama3.2",
-      "aliases": ["local-llama", "local", "llama3.2", "ollama-llama"],
-      "context_window": 128000,
-      "max_output_tokens": 64000,
-      "supports_extended_thinking": false,
-      "supports_json_mode": false,
-      "supports_function_calling": false,
+      "model_name": "x-ai/grok-4",
+      "aliases": ["grok-4", "grok4", "grok"],
+      "context_window": 256000,
+      "max_output_tokens": 100000,
+      "supports_extended_thinking": true,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "supports_images": true,
+      "max_image_size_mb": 20.0,
+      "supports_temperature": false,
+      "temperature_constraint": "fixed",
+      "description": "xAI's Grok-4 model - advanced reasoning and multimodal capabilities with real-time web access"
+    },
+    {
+      "model_name": "moonshotai/kimi-k2",
+      "aliases": ["kimi-k2", "moonshotai/kimi-k2-instruct", "kimi", "moonshot-k2"],
+      "context_window": 63000,
+      "max_output_tokens": 63000,
+      "supports_extended_thinking": true,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
       "supports_images": false,
       "max_image_size_mb": 0.0,
-      "is_custom": true,
-      "description": "Local Llama 3.2 model via custom endpoint (Ollama/vLLM) - 128K context window (text-only)"
+      "description": "MoonshotAI Kimi K2 - 1T parameter Mixture-of-Experts model with advanced reasoning, agentic workflow, and code generation capabilities (text-only)"
+    },
+    {
+      "model_name": "qwen/qwen3-coder",
+      "aliases": ["qwen3-coder", "qwen-coder", "qwen3", "qwen"],
+      "context_window": 262000,
+      "max_output_tokens": 16384,
+      "supports_extended_thinking": true,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "supports_images": false,
+      "max_image_size_mb": 0.0,
+      "description": "Qwen-3 Coder with strong code generation and reasoning capability (text-only)"
+    },
+    {
+      "model_name": "z-ai/glm-4.5",
+      "aliases": ["glm-4.5", "glm4.5", "glm", "zai-glm"],
+      "context_window": 131072,
+      "max_output_tokens": 32768,
+      "supports_extended_thinking": true,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "supports_images": false,
+      "max_image_size_mb": 0.0,
+      "description": "GLM-4.5 flagship foundation model with MoE architecture, supports thinking mode for complex reasoning and tool use"
+    },
+    {
+      "model_name": "openai/gpt-oss-120b",
+      "aliases": ["gpt-oss", "gpt-oss-120b", "oss-120b", "oss"],
+      "context_window": 131072,
+      "max_output_tokens": 32768,
+      "supports_extended_thinking": false,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "supports_images": false,
+      "max_image_size_mb": 0.0,
+      "description": "GPT OSS 120B - Open-source GPT model with strong general capabilities"
+    },
+    {
+      "model_name": "openai/gpt-5",
+      "aliases": ["gpt-5", "gpt5", "gpt"],
+      "context_window": 400000,
+      "max_output_tokens": 128000,
+      "supports_extended_thinking": false,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "supports_images": true,
+      "max_image_size_mb": 20.0,
+      "supports_temperature": true,
+      "temperature_constraint": "range",
+      "description": "OpenAI GPT-5 via OpenRouter"
+    },
+    {
+      "model_name": "openrouter/horizon-beta",
+      "aliases": ["horizon-beta", "horizon"],
+      "context_window": 256000,
+      "max_output_tokens": 64000,
+      "supports_extended_thinking": false,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "supports_images": true,
+      "max_image_size_mb": 20.0,
+      "supports_temperature": true,
+      "temperature_constraint": "range",
+      "description": "OpenRouter Horizon Beta - Cloaked community testing model with multimodal capabilities (free during testing)"
     }
   ]
 }
