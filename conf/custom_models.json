@@ -99,18 +99,6 @@
       "description": "Google's Gemini 2.5 Flash via OpenRouter with vision"
     },
     {
-      "model_name": "deepseek/deepseek-r1-0528",
-      "aliases": ["deepseek-r1", "deepseek", "r1", "deepseek-thinking"],
-      "context_window": 65536,
-      "max_output_tokens": 32768,
-      "supports_extended_thinking": true,
-      "supports_json_mode": true,
-      "supports_function_calling": false,
-      "supports_images": false,
-      "max_image_size_mb": 0.0,
-      "description": "DeepSeek R1 with thinking mode - advanced reasoning capabilities (text-only)"
-    },
-    {
       "model_name": "openai/o3",
       "aliases": ["o3"],
       "context_window": 200000,
