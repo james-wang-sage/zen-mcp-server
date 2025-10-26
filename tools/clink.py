@@ -17,6 +17,7 @@ from clink.models import ResolvedCLIClient, ResolvedCLIRole
 from config import TEMPERATURE_BALANCED
 from tools.models import ToolModelCategory, ToolOutput
 from tools.shared.base_models import COMMON_FIELD_DESCRIPTIONS
+from tools.shared.exceptions import ToolExecutionError
 from tools.simple.base import SchemaBuilder, SimpleTool
 
 logger = logging.getLogger(__name__)
@@ -37,9 +38,9 @@ class CLinkRequest(BaseModel):
         default=None,
         description="Optional role preset defined in the CLI configuration (defaults to 'default').",
     )
-    files: list[str] = Field(
+    absolute_file_paths: list[str] = Field(
         default_factory=list,
-        description=COMMON_FIELD_DESCRIPTIONS["files"],
+        description=COMMON_FIELD_DESCRIPTIONS["absolute_file_paths"],
     )
     images: list[str] = Field(
         default_factory=list,
@@ -139,7 +140,7 @@ class CLinkTool(SimpleTool):
                 "enum": self._all_roles or ["default"],
                 "description": role_description,
             },
-            "files": SchemaBuilder.SIMPLE_FIELD_SCHEMAS["files"],
+            "absolute_file_paths": SchemaBuilder.SIMPLE_FIELD_SCHEMAS["absolute_file_paths"],
             "images": SchemaBuilder.COMMON_FIELD_SCHEMAS["images"],
             "continuation_id": SchemaBuilder.COMMON_FIELD_SCHEMAS["continuation_id"],
         }
@@ -166,46 +167,57 @@ class CLinkTool(SimpleTool):
 
         path_error = self._validate_file_paths(request)
         if path_error:
-            return [self._error_response(path_error)]
+            self._raise_tool_error(path_error)
 
         selected_cli = request.cli_name or self._default_cli_name
         if not selected_cli:
-            return [self._error_response("No CLI clients are configured for clink.")]
+            self._raise_tool_error("No CLI clients are configured for clink.")
 
         try:
             client_config = self._registry.get_client(selected_cli)
         except KeyError as exc:
-            return [self._error_response(str(exc))]
+            self._raise_tool_error(str(exc))
 
         try:
             role_config = client_config.get_role(request.role)
         except KeyError as exc:
-            return [self._error_response(str(exc))]
+            self._raise_tool_error(str(exc))
 
-        files = self.get_request_files(request)
+        absolute_file_paths = self.get_request_files(request)
         images = self.get_request_images(request)
         continuation_id = self.get_request_continuation_id(request)
 
         self._model_context = arguments.get("_model_context")
 
+        system_prompt_text = role_config.prompt_path.read_text(encoding="utf-8")
+        include_system_prompt = not self._use_external_system_prompt(client_config)
+
         try:
-            prompt_text = await self._prepare_prompt_for_role(request, role_config)
+            prompt_text = await self._prepare_prompt_for_role(
+                request,
+                role_config,
+                system_prompt=system_prompt_text,
+                include_system_prompt=include_system_prompt,
+            )
         except Exception as exc:
             logger.exception("Failed to prepare clink prompt")
-            return [self._error_response(f"Failed to prepare prompt: {exc}")]
+            self._raise_tool_error(f"Failed to prepare prompt: {exc}")
 
         agent = create_agent(client_config)
         try:
-            result = await agent.run(role=role_config, prompt=prompt_text, files=files, images=images)
+            result = await agent.run(
+                role=role_config,
+                prompt=prompt_text,
+                system_prompt=system_prompt_text if system_prompt_text.strip() else None,
+                files=absolute_file_paths,
+                images=images,
+            )
         except CLIAgentError as exc:
             metadata = self._build_error_metadata(client_config, exc)
-            error_output = ToolOutput(
-                status="error",
-                content=f"CLI '{client_config.name}' execution failed: {exc}",
-                content_type="text",
+            self._raise_tool_error(
+                f"CLI '{client_config.name}' execution failed: {exc}",
                 metadata=metadata,
             )
-            return [TextContent(type="text", text=error_output.model_dump_json())]
 
         metadata = self._build_success_metadata(client_config, role_config, result)
         metadata = self._prune_metadata(metadata, client_config, reason="normal")
@@ -249,11 +261,25 @@ class CLinkTool(SimpleTool):
     async def prepare_prompt(self, request) -> str:
         client_config = self._registry.get_client(request.cli_name)
         role_config = client_config.get_role(request.role)
-        return await self._prepare_prompt_for_role(request, role_config)
+        system_prompt_text = role_config.prompt_path.read_text(encoding="utf-8")
+        include_system_prompt = not self._use_external_system_prompt(client_config)
+        return await self._prepare_prompt_for_role(
+            request,
+            role_config,
+            system_prompt=system_prompt_text,
+            include_system_prompt=include_system_prompt,
+        )
 
-    async def _prepare_prompt_for_role(self, request: CLinkRequest, role: ResolvedCLIRole) -> str:
+    async def _prepare_prompt_for_role(
+        self,
+        request: CLinkRequest,
+        role: ResolvedCLIRole,
+        *,
+        system_prompt: str,
+        include_system_prompt: bool,
+    ) -> str:
         """Load the role prompt and assemble the final user message."""
-        self._active_system_prompt = role.prompt_path.read_text(encoding="utf-8")
+        self._active_system_prompt = system_prompt
         try:
             user_content = self.handle_prompt_file_with_fallback(request).strip()
             guidance = self._agent_capabilities_guidance()
@@ -261,7 +287,7 @@ class CLinkTool(SimpleTool):
 
             sections: list[str] = []
             active_prompt = self.get_system_prompt().strip()
-            if active_prompt:
+            if include_system_prompt and active_prompt:
                 sections.append(active_prompt)
             sections.append(guidance)
             sections.append("=== USER REQUEST ===\n" + user_content)
@@ -271,6 +297,10 @@ class CLinkTool(SimpleTool):
             return "\n\n".join(sections)
         finally:
             self._active_system_prompt = ""
+
+    def _use_external_system_prompt(self, client: ResolvedCLIClient) -> bool:
+        runner_name = (client.runner or client.name).lower()
+        return runner_name == "claude"
 
     def _build_success_metadata(
         self,
@@ -404,9 +434,9 @@ class CLinkTool(SimpleTool):
             metadata["stderr"] = exc.stderr.strip()
         return metadata
 
-    def _error_response(self, message: str) -> TextContent:
-        error_output = ToolOutput(status="error", content=message, content_type="text")
-        return TextContent(type="text", text=error_output.model_dump_json())
+    def _raise_tool_error(self, message: str, metadata: dict[str, Any] | None = None) -> None:
+        error_output = ToolOutput(status="error", content=message, content_type="text", metadata=metadata)
+        raise ToolExecutionError(error_output.model_dump_json())
 
     def _agent_capabilities_guidance(self) -> str:
         return (

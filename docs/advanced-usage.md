@@ -44,7 +44,7 @@ Regardless of your default configuration, you can specify models per request:
 | **`gpt5`** (GPT-5) | OpenAI | 400K tokens | Advanced model with reasoning support | Complex problems requiring advanced reasoning |
 | **`gpt5-mini`** (GPT-5 Mini) | OpenAI | 400K tokens | Efficient variant with reasoning | Balanced performance and capability |
 | **`gpt5-nano`** (GPT-5 Nano) | OpenAI | 400K tokens | Fastest, cheapest GPT-5 variant | Summarization and classification tasks |
-| **`grok-4-latest`** | X.AI | 256K tokens | Latest flagship model with reasoning, vision | Complex analysis, reasoning tasks |
+| **`grok-4`** | X.AI | 256K tokens | Latest flagship Grok model with reasoning, vision | Complex analysis, reasoning tasks |
 | **`grok-3`** | X.AI | 131K tokens | Advanced reasoning model | Deep analysis, complex problems |
 | **`grok-3-fast`** | X.AI | 131K tokens | Higher performance variant | Fast responses with reasoning |
 | **`llama`** (Llama 3.2) | Custom/Local | 128K tokens | Local inference, privacy | On-device analysis, cost-free processing |
@@ -395,11 +395,11 @@ User: "Use gemini to review this code: [50,000+ character detailed analysis]"
 Zen MCP: "The prompt is too large for MCP's token limits (>50,000 characters). 
 Please save the prompt text to a temporary file named 'prompt.txt' and resend 
 the request with an empty prompt string and the absolute file path included 
-in the files parameter, along with any other files you wish to share as context."
+in the absolute_file_paths parameter, along with any other files you wish to share as context."
 
 # Claude automatically handles this:
 - Saves your prompt to /tmp/prompt.txt
-- Resends: "Use gemini to review this code" with files=["/tmp/prompt.txt", "/path/to/code.py"]
+- Resends: "Use gemini to review this code" with absolute_file_paths=["/tmp/prompt.txt", "/path/to/code.py"]
 
 # Server processes the large prompt through Gemini's 1M context
 # Returns comprehensive analysis within MCP's response limits

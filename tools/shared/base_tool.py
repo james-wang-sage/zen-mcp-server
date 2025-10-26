@@ -17,6 +17,7 @@ from typing import TYPE_CHECKING, Any, Optional
 from mcp.types import TextContent
 
 if TYPE_CHECKING:
+    from providers.shared import ModelCapabilities
     from tools.models import ToolModelCategory
 
 from config import MCP_PROMPT_SIZE_LIMIT
@@ -89,7 +90,7 @@ class BaseTool(ABC):
         """Get cached OpenRouter registry instance, creating if needed."""
         # Use BaseTool class directly to ensure cache is shared across all subclasses
         if BaseTool._openrouter_registry_cache is None:
-            from providers.openrouter_registry import OpenRouterModelRegistry
+            from providers.registries.openrouter import OpenRouterModelRegistry
 
             BaseTool._openrouter_registry_cache = OpenRouterModelRegistry()
             logger.debug("Created cached OpenRouter registry instance")
@@ -99,7 +100,7 @@ class BaseTool(ABC):
     def _get_custom_registry(cls):
         """Get cached custom-endpoint registry instance."""
         if BaseTool._custom_registry_cache is None:
-            from providers.custom_registry import CustomEndpointModelRegistry
+            from providers.registries.custom import CustomEndpointModelRegistry
 
             BaseTool._custom_registry_cache = CustomEndpointModelRegistry()
             logger.debug("Created cached Custom registry instance")
@@ -164,6 +165,42 @@ class BaseTool(ABC):
             str: System prompt with role definition and instructions
         """
         pass
+
+    def get_capability_system_prompts(self, capabilities: Optional["ModelCapabilities"]) -> list[str]:
+        """Return additional system prompt snippets gated on model capabilities.
+
+        Subclasses can override this hook to append capability-specific
+        instructions (for example, enabling code-generation exports when a
+        model advertises support). The default implementation returns an empty
+        list so no extra instructions are appended.
+
+        Args:
+            capabilities: The resolved capabilities for the active model.
+
+        Returns:
+            List of prompt fragments to append after the base system prompt.
+        """
+
+        return []
+
+    def _augment_system_prompt_with_capabilities(
+        self, base_prompt: str, capabilities: Optional["ModelCapabilities"]
+    ) -> str:
+        """Merge capability-driven prompt addenda with the base system prompt."""
+
+        additions: list[str] = []
+        if capabilities is not None:
+            additions = [fragment.strip() for fragment in self.get_capability_system_prompts(capabilities) if fragment]
+
+        if not additions:
+            return base_prompt
+
+        addition_text = "\n\n".join(additions)
+        if not base_prompt:
+            return addition_text
+
+        suffix = "" if base_prompt.endswith("\n\n") else "\n\n"
+        return f"{base_prompt}{suffix}{addition_text}"
 
     def get_annotations(self) -> Optional[dict[str, Any]]:
         """
@@ -413,12 +450,15 @@ class BaseTool(ABC):
         for rank, canonical_name, capabilities in filtered[:limit]:
             details: list[str] = []
 
-            context_str = self._format_context_window(getattr(capabilities, "context_window", 0))
+            context_str = self._format_context_window(capabilities.context_window)
             if context_str:
                 details.append(context_str)
 
-            if getattr(capabilities, "supports_extended_thinking", False):
+            if capabilities.supports_extended_thinking:
                 details.append("thinking")
+
+            if capabilities.allow_code_generation:
+                details.append("code-gen")
 
             base = f"{canonical_name} (score {rank}"
             if details:
@@ -627,7 +667,7 @@ class BaseTool(ABC):
         """
         # Only validate files/paths if they exist in the request
         file_fields = [
-            "files",
+            "absolute_file_paths",
             "file",
             "path",
             "directory",
@@ -845,7 +885,7 @@ class BaseTool(ABC):
 
     def handle_prompt_file(self, files: Optional[list[str]]) -> tuple[Optional[str], Optional[list[str]]]:
         """
-        Check for and handle prompt.txt in the files list.
+        Check for and handle prompt.txt in the absolute file paths list.
 
         If prompt.txt is found, reads its content and removes it from the files list.
         This file is treated specially as the main prompt, not as an embedded file.
@@ -855,7 +895,7 @@ class BaseTool(ABC):
         mechanism to bypass token constraints while preserving response capacity.
 
         Args:
-            files: List of file paths (will be translated for current environment)
+            files: List of absolute file paths (will be translated for current environment)
 
         Returns:
             tuple: (prompt_content, updated_files_list)
@@ -943,7 +983,7 @@ class BaseTool(ABC):
                     f"MANDATORY ACTION REQUIRED: The prompt is too large for MCP's token limits (>{MCP_PROMPT_SIZE_LIMIT:,} characters). "
                     "YOU MUST IMMEDIATELY save the prompt text to a temporary file named 'prompt.txt' in the working directory. "
                     "DO NOT attempt to shorten or modify the prompt. SAVE IT AS-IS to 'prompt.txt'. "
-                    "Then resend the request with the absolute file path to 'prompt.txt' in the files parameter (must be FULL absolute path - DO NOT SHORTEN), "
+                    "Then resend the request, passing the absolute file path to 'prompt.txt' as part of the tool call, "
                     "along with any other files you wish to share as context. Leave the prompt text itself empty or very brief in the new request. "
                     "This is the ONLY way to handle large prompts - you MUST follow these exact steps."
                 ),
@@ -951,7 +991,7 @@ class BaseTool(ABC):
                 "metadata": {
                     "prompt_size": len(text),
                     "limit": MCP_PROMPT_SIZE_LIMIT,
-                    "instructions": "MANDATORY: Save prompt to 'prompt.txt' in current folder and include absolute path in files parameter. DO NOT modify or shorten the prompt.",
+                    "instructions": "MANDATORY: Save prompt to 'prompt.txt' in current folder and provide full path when recalling this tool.",
                 },
             }
         return None

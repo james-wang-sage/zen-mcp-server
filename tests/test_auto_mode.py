@@ -7,6 +7,7 @@ from unittest.mock import patch
 import pytest
 
 from tools.chat import ChatTool
+from tools.shared.exceptions import ToolExecutionError
 
 
 class TestAutoMode:
@@ -137,7 +138,7 @@ class TestAutoMode:
             importlib.reload(config)
 
     @pytest.mark.asyncio
-    async def test_auto_mode_requires_model_parameter(self):
+    async def test_auto_mode_requires_model_parameter(self, tmp_path):
         """Test that auto mode enforces model parameter"""
         # Save original
         original = os.environ.get("DEFAULT_MODEL", "")
@@ -153,14 +154,14 @@ class TestAutoMode:
 
             # Mock the provider to avoid real API calls
             with patch.object(tool, "get_model_provider"):
-                # Execute without model parameter
-                result = await tool.execute({"prompt": "Test prompt"})
+                # Execute without model parameter and expect protocol error
+                with pytest.raises(ToolExecutionError) as exc_info:
+                    await tool.execute({"prompt": "Test prompt", "working_directory_absolute_path": str(tmp_path)})
 
-            # Should get error
-            assert len(result) == 1
-            response = result[0].text
-            assert "error" in response
-            assert "Model parameter is required" in response or "Model 'auto' is not available" in response
+            # Should get error payload mentioning model requirement
+            error_payload = getattr(exc_info.value, "payload", str(exc_info.value))
+            assert "Model" in error_payload
+            assert "auto" in error_payload
 
         finally:
             # Restore
@@ -207,7 +208,7 @@ class TestAutoMode:
             try:
                 result = await tool.execute(
                     {
-                        "files": ["/tmp/test.py"],
+                        "absolute_file_paths": ["/tmp/test.py"],
                         "prompt": "Analyze this",
                         "model": "nonexistent-model-xyz",  # This model definitely doesn't exist
                     }

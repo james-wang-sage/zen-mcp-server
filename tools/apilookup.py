@@ -25,22 +25,23 @@ class LookupRequest(ToolRequest):
 
 
 LOOKUP_PROMPT = """
-MANDATORY: You MUST perform this research in a SEPARATE SUB-AGENT SUB-PROCESS using your web search tool.
+MANDATORY: You MUST perform this research in a SEPARATE SUB-TASK using your web search tool.
 
-CRITICAL RULES:
-- NEVER call `apilookup` / `zen.apilookup` or any other zen tool again for this mission. Launch your environment's dedicated web search capability
-  (for example `websearch`, `web_search`, or another native web-search tool such as the one you use to perform a web search online) to gather sources.
-- ALWAYS run the search from a separate sub-agent/sub-process so the research happens outside this tool invocation.
+CRITICAL RULES - READ CAREFULLY:
+- Launch your environment's dedicated web search capability (for example `websearch`, `web_search`, or another native
+web-search tool such as the one you use to perform a web search online) to gather sources - do NOT call this `apilookup` tool again
+during the same lookup, this is ONLY an orchestration tool to guide you and has NO web search capability of its own.
+- ALWAYS run the search from a separate sub-task/sub-process so the research happens outside this tool invocation.
 - If the environment does not expose a web search tool, immediately report that limitation instead of invoking `apilookup` again.
-- Once you have current, authoritative documentation that answers the prompt, stop researching immediately and return with those sources—do not continue exploring tangential links or extra queries.
 
 MISSION:
 Research the latest, most authoritative documentation for the requested API, SDK, library, framework, programming language feature, or tool to answer the user's question accurately using a SUB-AGENT in a separate process.
 
-STRATEGY:
+SEARCH STRATEGY (MAXIMUM 2-4 SEARCHES TOTAL FOR THIS MISSION - THEN STOP):
 - IMPORTANT: Begin by determining today's date and current year
 - MANDATORY FOR OS-TIED APIS/SDKs: If the request involves iOS, macOS, Windows, Linux, Android, watchOS, tvOS, or any OS-specific framework/API:
   * FIRST perform a web search to determine "what is the latest [OS name] version [current year]"
+  * If the search is around a specific tool or an IDE, confirm the latest version "latest version [tool name]"
   * DO NOT rely on your training data or knowledge cutoff for OS versions - you MUST search for current information
   * ONLY AFTER confirming the current OS version, search for APIs/SDKs/frameworks for that specific version
   * Example workflow: Search "latest iOS version [current year]" → Find current version → Then search "[current iOS version] SwiftUI glass effect button [current year]"
@@ -60,6 +61,7 @@ STRATEGY:
 - Look for recent Stack Overflow discussions, GitHub issues, RFC documents, or official discussion forums when official docs are incomplete
 - Cross-reference multiple sources to validate syntax, method signatures, configuration options, and best practices
 - Search for deprecation warnings, security advisories, or migration paths between major versions
+- STOP IMMEDIATELY after 2-4 searches maximum - DO NOT continue exploring tangential topics, examples, tutorials, or supplementary material
 - If latest, more current, authoritative information has been found: STOP looking further
 - ALWAYS cite authoritative sources with links (official docs, changelogs, GitHub releases, package registry pages)
 """.strip()
@@ -86,7 +88,7 @@ class LookupTool(SimpleTool):
     def requires_model(self) -> bool:
         return False
 
-    def get_model_category(self) -> "ToolModelCategory":
+    def get_model_category(self) -> ToolModelCategory:
         from tools.models import ToolModelCategory
 
         return ToolModelCategory.FAST_RESPONSE
