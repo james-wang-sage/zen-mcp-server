@@ -145,8 +145,8 @@
       "intelligence_score": 17
     },
     {
-      "model_name": "moonshotai/kimi-k2-0905",
-      "aliases": ["kimi-k2", "kimi-k2-0905", "kimi", "moonshot-k2"],
+      "model_name": "moonshotai/kimi-k2-thinking",
+      "aliases": ["kimi-k2", "kimi", "kimi-k2-thinking"],
       "context_window": 262144,
       "max_output_tokens": 262144,
       "supports_extended_thinking": true,
@@ -156,7 +156,38 @@
       "max_image_size_mb": 0.0,
       "supports_temperature": true,
       "temperature_constraint": "range",
-      "description": "MoonshotAI Kimi K2 0905 - 1T parameter MoE model (32B active) with 256K context, specialized in agentic coding, tool use, and reasoning"
+      "description": "MoonshotAI Kimi K2 Thinking - 1T parameter MoE model (32B active) with mandatory reasoning mode, optimized for complex multi-step reasoning and agentic workflows with 200-300+ tool calls",
+      "intelligence_score": 14
+    },
+    {
+      "model_name": "minimax/minimax-m2",
+      "aliases": ["minimax-m2", "minimax", "m2", "minimax"],
+      "context_window": 204800,
+      "max_output_tokens": 32768,
+      "supports_extended_thinking": true,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "supports_images": false,
+      "max_image_size_mb": 0.0,
+      "supports_temperature": true,
+      "temperature_constraint": "range",
+      "description": "MiniMax M2 - 230B parameter MoE model (10B active) optimized for end-to-end coding, agentic workflows, and multi-file editing with strong reasoning capabilities",
+      "intelligence_score": 13
+    },
+    {
+      "model_name": "openrouter/polaris-alpha",
+      "aliases": ["polaris-alpha", "polaris"],
+      "context_window": 256000,
+      "max_output_tokens": 128000,
+      "supports_extended_thinking": false,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "supports_images": true,
+      "max_image_size_mb": 20.0,
+      "supports_temperature": true,
+      "temperature_constraint": "range",
+      "description": "OpenRouter Polaris Alpha - Free general-purpose model excelling in coding, tool calling, and instruction following with vision support",
+      "intelligence_score": 11
     },
     {
       "model_name": "qwen/qwen3-max",
@@ -189,10 +220,7 @@
     },
     {
       "model_name": "x-ai/grok-4",
-      "aliases": [
-        "grok-4",
-        "grok4",
-        "grok"
+      "aliases": ["grok-4", "grok4", "grok"
       ],
       "context_window": 256000,
       "max_output_tokens": 256000,
