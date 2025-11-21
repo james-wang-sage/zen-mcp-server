@@ -26,15 +26,16 @@
   },
   "models": [
     {
-      "model_name": "gemini-2.5-pro",
-      "friendly_name": "Gemini (Pro 2.5)",
+      "model_name": "gemini-3-pro-preview",
+      "friendly_name": "Gemini (Pro 3.0 Preview)",
       "aliases": [
         "pro",
-        "gemini pro",
-        "gemini-pro"
+        "gemini3",
+        "gemini-3-pro",
+        "gemini3-pro"
       ],
-      "intelligence_score": 18,
-      "description": "Deep reasoning + thinking mode (1M context) - Complex problems, architecture, deep analysis",
+      "intelligence_score": 19,
+      "description": "Next-gen reasoning + thinking mode (1M context) - Enhanced memory management, agentic workflows, multimodal",
       "context_window": 1048576,
       "max_output_tokens": 65536,
       "max_thinking_tokens": 32768,

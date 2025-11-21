@@ -26,105 +26,16 @@
   },
   "models": [
     {
-      "model_name": "gpt-5",
-      "friendly_name": "OpenAI (GPT-5)",
+      "model_name": "gpt-5.1-codex",
+      "friendly_name": "OpenAI (GPT-5.1 Codex)",
       "aliases": [
-        "gpt5",
-        "gpt-5"
-      ],
-      "intelligence_score": 16,
-      "description": "GPT-5 (400K context, 128K output) - Advanced model with reasoning support",
-      "context_window": 400000,
-      "max_output_tokens": 128000,
-      "supports_extended_thinking": true,
-      "supports_system_prompts": true,
-      "supports_streaming": false,
-      "supports_function_calling": true,
-      "supports_json_mode": true,
-      "supports_images": true,
-      "supports_temperature": true,
-      "max_image_size_mb": 20.0,
-      "temperature_constraint": "fixed"
-    },
-    {
-      "model_name": "gpt-5-pro",
-      "friendly_name": "OpenAI (GPT-5 Pro)",
-      "aliases": [
-        "gpt5pro",
-        "gpt5-pro"
-      ],
-      "intelligence_score": 18,
-      "description": "GPT-5 Pro (400K context, 272K output) - Very advanced, reasoning model",
-      "context_window": 400000,
-      "max_output_tokens": 272000,
-      "supports_extended_thinking": true,
-      "supports_system_prompts": true,
-      "supports_streaming": false,
-      "supports_function_calling": true,
-      "supports_json_mode": true,
-      "supports_images": true,
-      "supports_temperature": true,
-      "max_image_size_mb": 20.0,
-      "use_openai_response_api": true,
-      "default_reasoning_effort": "high",
-      "allow_code_generation": true,
-      "temperature_constraint": "fixed"
-    },
-    {
-      "model_name": "gpt-5-mini",
-      "friendly_name": "OpenAI (GPT-5-mini)",
-      "aliases": [
-        "gpt5-mini",
-        "gpt5mini",
-        "mini"
-      ],
-      "intelligence_score": 15,
-      "description": "GPT-5-mini (400K context, 128K output) - Efficient variant with reasoning support",
-      "context_window": 400000,
-      "max_output_tokens": 128000,
-      "supports_extended_thinking": true,
-      "supports_system_prompts": true,
-      "supports_streaming": false,
-      "supports_function_calling": true,
-      "supports_json_mode": true,
-      "supports_images": true,
-      "supports_temperature": true,
-      "max_image_size_mb": 20.0,
-      "temperature_constraint": "fixed"
-    },
-    {
-      "model_name": "gpt-5-nano",
-      "friendly_name": "OpenAI (GPT-5 nano)",
-      "aliases": [
-        "gpt5nano",
-        "gpt5-nano",
-        "nano"
-      ],
-      "intelligence_score": 13,
-      "description": "GPT-5 nano (400K context) - Fastest, cheapest version of GPT-5 for summarization and classification tasks",
-      "context_window": 400000,
-      "max_output_tokens": 128000,
-      "supports_extended_thinking": true,
-      "supports_system_prompts": true,
-      "supports_streaming": true,
-      "supports_function_calling": true,
-      "supports_json_mode": true,
-      "supports_images": true,
-      "supports_temperature": true,
-      "max_image_size_mb": 20.0,
-      "temperature_constraint": "fixed"
-    },
-    {
-      "model_name": "gpt-5-codex",
-      "friendly_name": "OpenAI (GPT-5 Codex)",
-      "aliases": [
-        "gpt5-codex",
         "codex",
-        "gpt-5-code",
-        "gpt5-code"
+        "gpt5.1-codex",
+        "gpt-5.1-code",
+        "gpt5.1-code"
       ],
       "intelligence_score": 17,
-      "description": "GPT-5 Codex (400K context) Specialized for coding, refactoring, and software architecture.",
+      "description": "GPT-5.1 Codex (400K context) Specialized for coding, refactoring, and software architecture.",
       "context_window": 400000,
       "max_output_tokens": 128000,
       "supports_extended_thinking": true,
@@ -136,6 +47,29 @@
       "supports_temperature": true,
       "max_image_size_mb": 20.0,
       "use_openai_response_api": true
+    },
+    {
+      "model_name": "gpt-5.1-codex-max",
+      "friendly_name": "OpenAI (GPT-5.1 Codex Max)",
+      "aliases": [
+        "max",
+        "gpt5.1-codex-max",
+        "gpt-5.1-max"
+      ],
+      "intelligence_score": 19,
+      "description": "GPT-5.1 Codex Max (multi-million context with compaction, 96K output) - Extended autonomous coding with session-long memory",
+      "context_window": 1000000,
+      "max_output_tokens": 96000,
+      "supports_extended_thinking": true,
+      "supports_system_prompts": true,
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_json_mode": true,
+      "supports_images": false,
+      "supports_temperature": true,
+      "max_image_size_mb": 0.0,
+      "use_openai_response_api": true,
+      "allow_code_generation": true
     }
   ]
 }

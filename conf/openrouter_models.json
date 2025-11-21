@@ -57,94 +57,6 @@
       "intelligence_score": 14
     },
     {
-      "model_name": "google/gemini-2.5-pro",
-      "aliases": [
-        "pro",
-        "gemini-pro",
-        "gemini",
-        "pro-openrouter"
-      ],
-      "context_window": 1048576,
-      "max_output_tokens": 65536,
-      "supports_extended_thinking": true,
-      "supports_json_mode": true,
-      "supports_function_calling": true,
-      "supports_images": true,
-      "max_image_size_mb": 20.0,
-      "allow_code_generation": true,
-      "description": "Google's Gemini 2.5 Pro via OpenRouter with vision",
-      "intelligence_score": 18
-    },
-    {
-      "model_name": "google/gemini-2.5-flash",
-      "aliases": [
-        "flash",
-        "gemini-flash"
-      ],
-      "context_window": 1048576,
-      "max_output_tokens": 65536,
-      "supports_extended_thinking": true,
-      "supports_json_mode": true,
-      "supports_function_calling": true,
-      "supports_images": true,
-      "max_image_size_mb": 15.0,
-      "description": "Google's Gemini 2.5 Flash via OpenRouter with vision",
-      "intelligence_score": 10
-    },
-    {
-      "model_name": "openai/gpt-5",
-      "aliases": [
-        "gpt5"
-      ],
-      "context_window": 400000,
-      "max_output_tokens": 128000,
-      "supports_extended_thinking": true,
-      "supports_json_mode": true,
-      "supports_function_calling": true,
-      "supports_images": true,
-      "max_image_size_mb": 20.0,
-      "supports_temperature": true,
-      "temperature_constraint": "range",
-      "description": "GPT-5 (400K context, 128K output) - Advanced model with reasoning support",
-      "intelligence_score": 16
-    },
-    {
-      "model_name": "openai/gpt-5-pro",
-      "aliases": [
-        "gpt5pro"
-      ],
-      "context_window": 400000,
-      "max_output_tokens": 272000,
-      "supports_extended_thinking": true,
-      "supports_json_mode": true,
-      "supports_function_calling": true,
-      "supports_images": true,
-      "max_image_size_mb": 20.0,
-      "supports_temperature": false,
-      "temperature_constraint": "fixed",
-      "use_openai_response_api": true,
-      "default_reasoning_effort": "high",
-      "allow_code_generation": true,
-      "description": "GPT-5 Pro - Advanced reasoning model with highest quality responses (text+image input, text output only)",
-      "intelligence_score": 18
-    },
-    {
-      "model_name": "openai/gpt-5-codex",
-      "aliases": [
-        "codex",
-        "gpt5codex"
-      ],
-      "context_window": 400000,
-      "max_output_tokens": 128000,
-      "supports_extended_thinking": false,
-      "supports_json_mode": true,
-      "supports_function_calling": false,
-      "supports_images": false,
-      "max_image_size_mb": 0.0,
-      "description": "GPT-5-Codex is a specialized version of GPT-5 optimized for software engineering and coding workflows",
-      "intelligence_score": 17
-    },
-    {
       "model_name": "moonshotai/kimi-k2-thinking",
       "aliases": ["kimi-k2", "kimi", "kimi-k2-thinking"],
       "context_window": 262144,
@@ -175,21 +87,6 @@
       "intelligence_score": 13
     },
     {
-      "model_name": "openrouter/polaris-alpha",
-      "aliases": ["polaris-alpha", "polaris"],
-      "context_window": 256000,
-      "max_output_tokens": 128000,
-      "supports_extended_thinking": false,
-      "supports_json_mode": true,
-      "supports_function_calling": true,
-      "supports_images": true,
-      "max_image_size_mb": 20.0,
-      "supports_temperature": true,
-      "temperature_constraint": "range",
-      "description": "OpenRouter Polaris Alpha - Free general-purpose model excelling in coding, tool calling, and instruction following with vision support",
-      "intelligence_score": 11
-    },
-    {
       "model_name": "qwen/qwen3-max",
       "aliases": ["qwen3-max", "qwen-max", "qwen3", "qwen"],
       "context_window": 256000,
@@ -215,7 +112,6 @@
       "max_image_size_mb": 0.0,
       "description": "GLM-4.6 flagship foundation model with MoE architecture, supports thinking mode for complex reasoning and tool use",
       "temperature_constraint": "fixed",
-      "description": "GPT-5 nano (400K context, 128K output) - Fastest, cheapest version of GPT-5 for summarization and classification tasks",
       "intelligence_score": 8
     },
     {
