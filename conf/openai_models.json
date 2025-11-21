@@ -47,29 +47,6 @@
       "supports_temperature": true,
       "max_image_size_mb": 20.0,
       "use_openai_response_api": true
-    },
-    {
-      "model_name": "gpt-5.1-codex-max",
-      "friendly_name": "OpenAI (GPT-5.1 Codex Max)",
-      "aliases": [
-        "max",
-        "gpt5.1-codex-max",
-        "gpt-5.1-max"
-      ],
-      "intelligence_score": 19,
-      "description": "GPT-5.1 Codex Max (multi-million context with compaction, 96K output) - Extended autonomous coding with session-long memory",
-      "context_window": 1000000,
-      "max_output_tokens": 96000,
-      "supports_extended_thinking": true,
-      "supports_system_prompts": true,
-      "supports_streaming": true,
-      "supports_function_calling": true,
-      "supports_json_mode": true,
-      "supports_images": false,
-      "supports_temperature": true,
-      "max_image_size_mb": 0.0,
-      "use_openai_response_api": true,
-      "allow_code_generation": true
     }
   ]
 }
